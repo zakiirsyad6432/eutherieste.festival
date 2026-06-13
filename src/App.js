@@ -743,7 +743,8 @@ export default function App() {
                   <span className="text-[10px] md:text-xs text-gray-400 font-mono bg-gray-50 px-2 py-1 rounded">{ticket.id}</span>
                 </div>
                 <div className="flex gap-4 md:gap-5 border-b border-dashed border-gray-200 pb-5">
-                  <img src={ticket.image} className="w-24 h-20 md:w-28 md:h-24 rounded-2xl object-cover shadow-sm bg-gray-100" alt="Cover" />
+                  {/* UPDATE BAGIAN SINI: Diberikan mekanisme fallback jika data local storage belum tersimpan / rusak */}
+                  <img src={ticket.image || EVENT_IMAGE_URL} onError={(e) => { e.target.onerror = null; e.target.src = EVENT_IMAGE_URL }} className="w-24 h-20 md:w-28 md:h-24 rounded-2xl object-cover shadow-sm bg-gray-100" alt="Cover" />
                   <div className="flex-1 flex flex-col justify-center">
                     <h3 className="font-extrabold text-base md:text-lg text-gray-900 leading-tight mb-2 line-clamp-2">{ticket.eventTitle}</h3>
                     <p className="text-[10px] md:text-xs text-gray-500 font-bold bg-gray-50 inline-block self-start px-2 py-1 rounded flex items-center"><Calendar className="w-3.5 h-3.5 mr-1.5"/> {ticket.date}</p>
@@ -778,7 +779,8 @@ export default function App() {
 
         <div className="px-6 py-4 max-w-2xl mx-auto">
           <div className="bg-white rounded-[2rem] relative filter drop-shadow-2xl overflow-hidden mb-8">
-            <img src={t.image} className="w-full aspect-video object-cover bg-gray-200" alt="Cover" />
+            {/* UPDATE BAGIAN SINI: Diberikan mekanisme fallback */}
+            <img src={t.image || EVENT_IMAGE_URL} onError={(e) => { e.target.onerror = null; e.target.src = EVENT_IMAGE_URL }} className="w-full aspect-video object-cover bg-gray-200" alt="Cover" />
             <div className="p-6 md:p-10 pb-4">
               <p className="text-xs md:text-sm font-bold text-orange-500 uppercase tracking-widest mb-2">Eutherieste Festival</p>
               <h2 className="font-extrabold text-2xl md:text-3xl text-gray-900 leading-tight mb-6">{t.eventTitle}</h2>
@@ -840,9 +842,10 @@ export default function App() {
       {['home', 'events', 'tickets'].includes(currentView) && (
         <div className="fixed bottom-0 md:top-0 md:bottom-auto left-0 w-full bg-white border-t md:border-b md:border-t-0 border-gray-100 flex justify-around p-2 pb-6 md:py-0 md:pb-0 z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] md:shadow-sm">
           <div className="max-w-6xl w-full flex justify-around md:justify-start md:gap-12 md:px-8 mx-auto">
-            {/* Logo Gambar Khusus Desktop */}
-            <div className="hidden md:flex items-center gap-3 mr-auto cursor-pointer" onClick={() => navTo('home')}>
-               <img src={LOGO_URL} alt="Logo Eutherieste" className="h-9 object-contain" />
+            
+            {/* UPDATE BAGIAN SINI: Diperbesar dari h-9 menjadi h-16 + penambahan padding py-2 */}
+            <div className="hidden md:flex items-center gap-3 mr-auto cursor-pointer py-2" onClick={() => navTo('home')}>
+               <img src={LOGO_URL} alt="Logo Eutherieste" className="h-16 object-contain" />
             </div>
             
             {[
