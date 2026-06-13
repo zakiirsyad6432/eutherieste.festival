@@ -347,7 +347,7 @@ export default function App() {
   const renderSplash = () => (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white p-5 animate-[popIn_0.4s_ease-out] w-full">
       <div className="text-center mb-12 relative flex flex-col items-center md:max-w-md">
-        <div className="absolute inset-0 bg-orange-100 rounded-full blur-3xl opacity-50 scale-150"></div>
+        <div className="absolute inset-0 bg-orange-100 rounded-full blur-3xl opacity-50 scale-150 pointer-events-none"></div>
         <div className="relative z-10 w-64 h-64 md:w-72 md:h-72 mb-6 drop-shadow-lg">
             <img 
               src={LOGO_URL} alt="Logo" className="w-full h-full object-contain aspect-square" 
@@ -359,7 +359,7 @@ export default function App() {
         </h1>
         <p className="text-gray-500 mt-3 font-medium relative z-10 md:text-lg">Get ready to feel the ultimate experience.</p>
       </div>
-      <button onClick={() => navTo('home')} className="w-full max-w-sm py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-red-600 to-orange-500 shadow-[0_10px_25px_rgba(249,115,22,0.4)] hover:scale-105 active:scale-95 transition-transform">
+      <button onClick={() => navTo('home')} className="relative z-10 w-full max-w-sm py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-red-600 to-orange-500 shadow-[0_10px_25px_rgba(249,115,22,0.4)] hover:scale-105 active:scale-95 transition-transform">
         Get Started
       </button>
     </div>
