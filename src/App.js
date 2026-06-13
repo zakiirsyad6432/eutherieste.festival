@@ -188,6 +188,112 @@ export default function App() {
     navTo('payment');
   };
 
+  // Fungsi Simpan Tiket Sebagai Gambar via HTML5 Canvas
+  const handleDownloadTicketImage = (ticket) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 600;
+    canvas.height = 850;
+    const ctx = canvas.getContext('2d');
+
+    // Background kartu putih bersih
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Header gradient
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop(0, '#dc2626');
+    gradient.addColorStop(1, '#f97316');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, 25);
+
+    // Nama Brand Utama
+    ctx.fillStyle = '#111827';
+    ctx.font = 'bold 26px sans-serif';
+    ctx.fillText('EUTHERIESTE FESTIVAL', 40, 80);
+
+    ctx.fillStyle = '#f97316';
+    ctx.font = '800 14px sans-serif';
+    ctx.fillText('E-TICKET RESMI', 40, 110);
+
+    // Garis Pemisah Atas
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(40, 140);
+    ctx.lineTo(560, 140);
+    ctx.stroke();
+
+    // Judul Event
+    ctx.fillStyle = '#111827';
+    ctx.font = '800 20px sans-serif';
+    ctx.fillText(ticket.eventTitle, 40, 190);
+
+    // Blok Informasi Tiket
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('TANGGAL', 40, 250);
+    ctx.fillStyle = '#1f2937';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.fillText(ticket.date, 40, 275);
+
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('KATEGORI', 340, 250);
+    ctx.fillStyle = '#dc2626';
+    ctx.font = '800 18px sans-serif';
+    ctx.fillText(ticket.package, 340, 275);
+
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('LOKASI VENEUE', 40, 335);
+    ctx.fillStyle = '#4b5563';
+    ctx.font = '600 14px sans-serif';
+    ctx.fillText(ticket.venue, 40, 360);
+
+    // Detail Pengunjung
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('NAMA PENGUNJUNG', 40, 425);
+    ctx.fillStyle = '#111827';
+    ctx.font = '800 22px sans-serif';
+    ctx.fillText(ticket.visitor.toUpperCase(), 40, 455);
+
+    ctx.fillStyle = '#6b7280';
+    ctx.font = '600 14px sans-serif';
+    ctx.fillText(`Urutan Tiket: ${ticket.qtyContext}`, 40, 485);
+
+    // Garis Pemisah Tiket ID
+    ctx.beginPath();
+    ctx.moveTo(40, 530);
+    ctx.lineTo(560, 530);
+    ctx.stroke();
+
+    ctx.fillStyle = '#9ca3af';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText('TICKET ID CODE', 40, 575);
+    ctx.fillStyle = '#111827';
+    ctx.font = 'bold 16px monospace';
+    ctx.fillText(ticket.id, 40, 600);
+
+    // Generate dan tempel QR code ke Canvas secara asinkronus
+    const qrImg = new Image();
+    qrImg.crossOrigin = 'anonymous';
+    qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${ticket.id}`;
+    qrImg.onload = () => {
+      ctx.drawImage(qrImg, 360, 560, 200, 200);
+      const link = document.createElement('a');
+      link.download = `Ticket-${ticket.id}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+    qrImg.onerror = () => {
+      const link = document.createElement('a');
+      link.download = `Ticket-${ticket.id}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
+  };
+
   // Timer Pembayaran
   useEffect(() => {
     if (currentView !== 'payment' || isPaymentLoading) return;
@@ -242,7 +348,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-white p-5 animate-[popIn_0.4s_ease-out] w-full">
       <div className="text-center mb-12 relative flex flex-col items-center md:max-w-md">
         <div className="absolute inset-0 bg-orange-100 rounded-full blur-3xl opacity-50 scale-150"></div>
-        <div className="relative z-10 w-48 h-48 mb-6 drop-shadow-lg">
+        <div className="relative z-10 w-64 h-64 md:w-72 md:h-72 mb-6 drop-shadow-lg">
             <img 
               src={LOGO_URL} alt="Logo" className="w-full h-full object-contain aspect-square" 
               onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect fill='transparent' width='300' height='300'/><text fill='%23f97316' x='50' y='55' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle'>LOGO</text></svg>" }} 
@@ -272,7 +378,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="p-5 md:p-8 -mt-6 md:-mt-8 relative z-20 max-w-6xl mx-auto md:grid md:grid-cols-12 gap-8">
+      <div className="p-5 md:p-8 mt-4 md:mt-6 relative z-20 max-w-6xl mx-auto md:grid md:grid-cols-12 gap-8">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 md:p-8 mb-8 md:mb-0 md:col-span-5 h-fit">
           <div className="flex items-center gap-2 mb-4">
             <Flame className="text-red-500 w-6 h-6 md:w-8 md:h-8" />
@@ -672,7 +778,7 @@ export default function App() {
 
         <div className="px-6 py-4 max-w-2xl mx-auto">
           <div className="bg-white rounded-[2rem] relative filter drop-shadow-2xl overflow-hidden mb-8">
-            <img src={t.image} className="w-full h-48 md:h-64 object-cover opacity-90" alt="Cover" />
+            <img src={t.image} className="w-full aspect-video object-cover bg-gray-200" alt="Cover" />
             <div className="p-6 md:p-10 pb-4">
               <p className="text-xs md:text-sm font-bold text-orange-500 uppercase tracking-widest mb-2">Eutherieste Festival</p>
               <h2 className="font-extrabold text-2xl md:text-3xl text-gray-900 leading-tight mb-6">{t.eventTitle}</h2>
@@ -718,7 +824,7 @@ export default function App() {
             </div>
           </div>
           
-          <button className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 py-4 md:py-5 rounded-2xl font-bold text-lg flex justify-center items-center gap-3 transition-colors">
+          <button onClick={() => handleDownloadTicketImage(t)} className="w-full bg-white/10 hover:bg-white/20 text-white border border-white/20 py-4 md:py-5 rounded-2xl font-bold text-lg flex justify-center items-center gap-3 transition-colors">
             <Download className="w-6 h-6" /> Simpan sebagai Gambar
           </button>
         </div>
@@ -728,15 +834,15 @@ export default function App() {
 
   // --- RENDER MAIN LAYOUT ---
   return (
-    <div className="min-h-screen bg-gray-50 font-sans w-full relative md:pt-[76px]">
+    <div className="min-h-screen bg-gray-50 w-full relative md:pt-[76px] main-font-override">
       
       {/* NAVIGATION FIXED (Bottom on Mobile, Top on Desktop) */}
       {['home', 'events', 'tickets'].includes(currentView) && (
         <div className="fixed bottom-0 md:top-0 md:bottom-auto left-0 w-full bg-white border-t md:border-b md:border-t-0 border-gray-100 flex justify-around p-2 pb-6 md:py-0 md:pb-0 z-40 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] md:shadow-sm">
           <div className="max-w-6xl w-full flex justify-around md:justify-start md:gap-12 md:px-8 mx-auto">
-            {/* Logo Khusus Desktop */}
-            <div className="hidden md:flex items-center gap-3 font-extrabold text-xl mr-auto cursor-pointer" onClick={() => navTo('home')}>
-               <span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">Eutherieste</span>
+            {/* Logo Gambar Khusus Desktop */}
+            <div className="hidden md:flex items-center gap-3 mr-auto cursor-pointer" onClick={() => navTo('home')}>
+               <img src={LOGO_URL} alt="Logo Eutherieste" className="h-9 object-contain" />
             </div>
             
             {[
@@ -836,7 +942,14 @@ export default function App() {
         <span>{toastMsg}</span>
       </div>
 
+      {/* INJEKSI FONT PROFESIONAL & ANIMASI */}
       <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        .main-font-override, .main-font-override * {
+          font-family: 'Plus Jakarta Sans', sans-serif !important;
+        }
+
         @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 70% { transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
