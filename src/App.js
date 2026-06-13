@@ -7,7 +7,7 @@ import {
 
 // --- DATA KONSTANTA ---
 const EVENT_VENUE = 'Mansate New Stadion (Old Cow Store, Beji, Tulungagung)';
-const LOGO_URL = 'https://gambarku1.com';
+const LOGO_URL = 'https://i.imgur.com/nkJj3EI.png';
 const EVENT_IMAGE_URL = 'https://gambarku2.com';
 
 const b_vvip = 'Benefit VVIP: Semua benefit VIP + Backstage pass, Selca, & Guess star special gifts.';
