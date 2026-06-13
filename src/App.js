@@ -8,7 +8,7 @@ import {
 // --- DATA KONSTANTA ---
 const EVENT_VENUE = 'Mansate New Stadion (Old Cow Store, Beji, Tulungagung)';
 const LOGO_URL = 'https://i.imgur.com/nkJj3EI.png';
-const EVENT_IMAGE_URL = 'https://gambarku2.com';
+const EVENT_IMAGE_URL = 'https://i.imgur.com/D2vYN81.jpeg';
 
 const b_vvip = 'Benefit VVIP: Semua benefit VIP + Backstage Pass, Selca, Guess Star special gifts.';
 const b_vip = 'Benefit VIP: Soundcheck entrance, Official merchandise, Exclusive lanyard, & Signed album.';
@@ -282,6 +282,10 @@ export default function App() {
             <span className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] md:text-xs uppercase px-3 py-1 rounded font-bold tracking-wider">Presale Telah Dibuka!</span>
             <h3 className="font-bold text-gray-900 mt-3 text-lg md:text-xl">Our Guess Star this Season: Coldplay, Ariana, The Weeknd & Bruno Mars</h3>
             <p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Presale Eutherieste telah dimulai lohh, Buruan siapin tabungan kalian dan amanin tiketnya! Karena apa? Karena Guess Star kita pada kali ini yang pastinya spesial banget ya, pasti pada ga mau dong kalo ga kebagian tiket? Yukk, klik menu tiket dan pilih hari sesuai yang kalian mau. Sssttt... stoknya terbatas lohh.</p>
+<p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Day 1: Coldplay</p>
+<p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Day 2: Ariana Grande</p>
+<p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Day 3: The Weeknd</p>
+<p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Day 4: Bruno Mars</p>
           </div>
         </div>
 
