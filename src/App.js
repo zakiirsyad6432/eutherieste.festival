@@ -10,11 +10,11 @@ const EVENT_VENUE = 'Mansate New Stadion (Old Cow Store, Beji, Tulungagung)';
 const LOGO_URL = 'https://i.imgur.com/nkJj3EI.png';
 const EVENT_IMAGE_URL = 'https://gambarku2.com';
 
-const b_vvip = 'Benefit VVIP: Semua benefit VIP + Backstage pass, Selca, & Guess star special gifts.';
+const b_vvip = 'Benefit VVIP: Semua benefit VIP + Backstage Pass, Selca, Guess Star special gifts.';
 const b_vip = 'Benefit VIP: Soundcheck entrance, Official merchandise, Exclusive lanyard, & Signed album.';
-const b_plat = 'Area strategis dengan view panggung terbaik (Seating/Standing).';
+const b_plat = 'Area strategis dengan view panggung terbaik (Numbered Seating).';
 const b_c1 = 'Kategori duduk (Numbered Seating) dengan view yang nyaman.';
-const b_c2 = 'Area berdiri (Festival/Standing) di belakang kategori lain.';
+const b_c2 = 'Kategori duduk (Numbered Seating) dengan view yang nyaman.';
 
 const DB_EVENTS = [
   {
@@ -33,7 +33,7 @@ const DB_EVENTS = [
   {
     id: 'pass-2-days', 
     title: 'Eutherieste Festival - Presale (2 Days Pass)', 
-    dateInfo: '15-16 / 17-18 Juni 2026', venue: EVENT_VENUE, image: EVENT_IMAGE_URL, priceStart: 9000000,
+    dateInfo: '15 - 18 Juni 2026', venue: EVENT_VENUE, image: EVENT_IMAGE_URL, priceStart: 9000000,
     availableDays: ['Day 1 & 2 (15-16 Juni)', 'Day 3 & 4 (17-18 Juni)'],
     packages: [
       { id: '2d-vvip', name: 'VVIP (2 Days)', price: 21000000, desc: b_vvip },
@@ -245,13 +245,13 @@ export default function App() {
         <div className="relative z-10 w-48 h-48 mb-6 drop-shadow-lg">
             <img 
               src={LOGO_URL} alt="Logo" className="w-full h-full object-contain aspect-square" 
-              onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='transparent' width='100' height='100'/><text fill='%23f97316' x='50' y='55' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle'>LOGO</text></svg>" }} 
+              onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 300'><rect fill='transparent' width='300' height='300'/><text fill='%23f97316' x='50' y='55' font-family='sans-serif' font-size='24' font-weight='bold' text-anchor='middle'>LOGO</text></svg>" }} 
             />
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 relative z-10 tracking-tight leading-tight">
           Eutherieste<br/><span className="bg-gradient-to-r from-red-600 to-orange-500 bg-clip-text text-transparent">Festival</span>
         </h1>
-        <p className="text-gray-500 mt-3 font-medium relative z-10 md:text-lg">Gateway to the ultimate experience.</p>
+        <p className="text-gray-500 mt-3 font-medium relative z-10 md:text-lg">Get ready to feel the ultimate experience.</p>
       </div>
       <button onClick={() => navTo('home')} className="w-full max-w-sm py-4 rounded-2xl font-bold text-lg text-white bg-gradient-to-r from-red-600 to-orange-500 shadow-[0_10px_25px_rgba(249,115,22,0.4)] hover:scale-105 active:scale-95 transition-transform">
         Get Started
@@ -279,9 +279,9 @@ export default function App() {
             <h2 className="text-lg md:text-2xl font-bold text-gray-800">Hot Updates</h2>
           </div>
           <div className="bg-orange-50 border border-orange-100 p-5 md:p-6 rounded-xl">
-            <span className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] md:text-xs uppercase px-3 py-1 rounded font-bold tracking-wider">Presale Dibuka</span>
-            <h3 className="font-bold text-gray-900 mt-3 text-lg md:text-xl">Coldplay, Ariana, The Weeknd & Bruno Mars!</h3>
-            <p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Siapkan tabunganmu, penjualan tiket presale Eutherieste Festival telah dibuka. Pilih hari favoritmu sekarang juga!</p>
+            <span className="bg-gradient-to-r from-red-500 to-orange-500 text-white text-[10px] md:text-xs uppercase px-3 py-1 rounded font-bold tracking-wider">Presale Telah Dibuka!</span>
+            <h3 className="font-bold text-gray-900 mt-3 text-lg md:text-xl">Our Guess Star this Season: Coldplay, Ariana, The Weeknd & Bruno Mars</h3>
+            <p className="text-sm md:text-base text-gray-600 mt-2 leading-relaxed">Presale Eutherieste telah dimulai lohh, Buruan siapin tabungan kalian dan amanin tiketnya! Karena apa? Karena Guess Star kita pada kali ini yang pastinya spesial banget ya, pasti pada ga mau dong kalo ga kebagian tiket? Yukk, klik menu tiket dan pilih hari sesuai yang kalian mau. Sssttt... stoknya terbatas lohh.</p>
           </div>
         </div>
 
@@ -289,10 +289,10 @@ export default function App() {
           <h2 className="text-lg md:text-2xl font-bold text-gray-800 mb-5 px-1">Cara Pemesanan Tiket</h2>
           <div className="space-y-4 md:grid md:grid-cols-2 md:space-y-0 md:gap-4">
             {[
-              { c: 'bg-red-50 text-red-600', t: <>Pilih menu <b className="text-gray-900">Event</b> dan cari jenis Pass.</> },
-              { c: 'bg-orange-50 text-orange-500', t: <>Pilih hari, kategori, dan tentukan jumlahnya (Maks 4).</> },
-              { c: 'bg-yellow-50 text-yellow-600', t: <>Isi detail data diri NIK pemesan dan selesaikan QRIS.</> },
-              { c: 'bg-green-50 text-green-600', t: <>Yeay! Tiket otomatis masuk ke <b className="text-gray-900">Tiket Saya</b>.</> }
+              { c: 'bg-red-50 text-red-600', t: <>Pilih menu <b className="text-gray-900">Event</b> dan pilih antara (1 Day Pass/2 Day Pass/4 Day Pass).</> },
+              { c: 'bg-orange-50 text-orange-500', t: <>Pilih hari, kategori, dan tentuin jumlah tiket yang mau kamu beli (Maksimal 4 tiket ya untuk 1x pembelian).</> },
+              { c: 'bg-yellow-50 text-yellow-600', t: <>Isi detail data diri dan selesaikan pembayaran menggunakan QRIS.</> },
+              { c: 'bg-green-50 text-green-600', t: <>Yeay! Tiket kamu udah secured dan otomatis masuk ke halaman <b className="text-gray-900">Tiket Saya</b>.</> }
             ].map((step, i) => (
               <div key={i} className="flex items-center md:items-start gap-4 bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:border-orange-200 transition-colors">
                 <div className={`${step.c} w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-lg`}>{i + 1}</div>
